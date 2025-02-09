@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "@/store/store";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
 import { FaGripLinesVertical } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
+import { Swiper as SwiperType } from 'swiper';
 
 const BannerHome: React.FC = () => {
   const bannerData = useSelector((state: RootState) => state.movieData.bannerData);
@@ -18,7 +19,7 @@ const BannerHome: React.FC = () => {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
 
   // Swiper reference
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
 
   // Function to fetch trailer
   const fetchTrailer = async (movieId: number) => {
@@ -29,7 +30,7 @@ const BannerHome: React.FC = () => {
       const data = await response.json();
 
       const trailer = data.results.find(
-        (video: any) => video.type === "Trailer" && video.site === "YouTube"
+        (video: { type: string; site: string; key: string }) => video.type === "Trailer" && video.site === "YouTube"
       );
 
       if (trailer) {
@@ -53,9 +54,9 @@ const BannerHome: React.FC = () => {
           pagination={{
             clickable: true,
             renderBullet: (index, className) =>
-              `<span class="${className} w-3 h-3 rounded-full bg-white opacity-80 transition-all duration-300 active:bg-red-600"></span>`,
+              `<span class="${className} w-6 h-6 rounded-full bg-white opacity-80 transition-all duration-300 active:bg-red-600"></span>`,
           }}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop
           effect="fade"
           className="w-full h-full relative"
@@ -78,10 +79,10 @@ const BannerHome: React.FC = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent flex flex-col justify-center items-start p-6 md:p-14 text-white">
+                <div key={movie.id+"bannerHome"+index} className="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent flex flex-col justify-center items-start p-6 md:p-14 text-white">
                   <h1 className="text-lg md:text-4xl font-bold">{movie.title || movie.name}</h1>
                   <p className="block sm:hidden text-sm mt-2 max-w-2xl">
-                    {movie.overview.length > 150 ? movie.overview.slice(0, 150) + "..." : movie.overview}
+                    {movie.overview.length > 150 ? movie.overview.slice(0, 200) + "..." : movie.overview}
                   </p>
                   <p className="hidden sm:block text-sm md:text-lg mt-2 max-w-2xl">{movie.overview}</p>
 
@@ -121,13 +122,13 @@ const BannerHome: React.FC = () => {
           <div className="absolute top-0 w-full h-full flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="absolute top-1/2 left-1px md:left-3 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-1 rounded-full text-white transition z-50 cursor-pointer"
+              className="absolute top-1/2 left-1px md:left-3 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-3 rounded-full text-white transition z-40 cursor-pointer"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="absolute top-1/2 right-[1px] md:right-3 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-1 rounded-full text-white transition z-50 cursor-pointer"
+              className="absolute top-1/2 right-[1px] md:right-3 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-3 rounded-full text-white transition z-40 cursor-pointer"
             >
               <ChevronRight size={16} />
             </button>

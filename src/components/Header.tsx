@@ -22,8 +22,8 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-lg z-50">
-      <div className="flex items-center justify-between py-4 px-6">
+    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-lg z-60">
+      <div className="flex items-center justify-between py-4 px-2 md:px-6">
         <Link to="/" className="text-3xl font-extrabold text-red-600">
           Movie<span className="text-white">Hub</span>
         </Link>

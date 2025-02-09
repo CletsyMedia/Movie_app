@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "types": ["jest", "@testing-library/jest-dom"],
+      "jsx": "react",
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "module": "ESNext",
+      "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
+    }
+  }

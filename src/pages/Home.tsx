@@ -1,23 +1,38 @@
-import React from 'react';
-import PageTransition from '../components/ui/PageTransition';
-import BannerHome from '../components/ui/BannerHome';
+import React, { useEffect } from 'react';
+import PageTransition from '@/components/ui/PageTransition';
+import BannerHome from '@/components/ui/BannerHome';
 import { useSelector } from 'react-redux';
-import Card from '../components/ui/Card';
-import { RootState } from '../store/store';
+import { RootState } from '@/store/store';
+import Scrolling from '@/components/common/Scrolling';
+import useFetchData from '@/hooks/useFetchData';
 
 const Home: React.FC = () => {
     const trendingMovies = useSelector((state: RootState) => Array.isArray(state.movieData.bannerData) ? state.movieData.bannerData : []) || [];
+
+    const nowPlayingMovie = useSelector((state: RootState) => Array.isArray(state.movieData.nowPlayingData) ? state.movieData.nowPlayingData : []) || [];
+
+    const topRatedMovies = useSelector((state: RootState) => Array.isArray(state.movieData.topRatedData) ? state.movieData.topRatedData : []) || [];
+
+    const popularTvMovies = useSelector((state: RootState) => Array.isArray(state.movieData.popularTvData) ? state.movieData.popularTvData : []) || [];
+
+    const onAirMovies = useSelector((state: RootState) => Array.isArray(state.movieData.onAirData) ? state.movieData.onAirData : []) || [];
+
+    const { fetchData } = useFetchData();
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
     return (
         <PageTransition>
             <div>
                 <BannerHome />
-                <h3 className="text-2xl font-bold text-white px-4 mt-6">TRENDING</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-                    {trendingMovies.map((movie, index) => (
-                        <Card key={movie.id} data={movie} index={index} />
-                    ))}
-                </div>
+                <Scrolling data={trendingMovies} heading="Trending" />
+                <Scrolling data={nowPlayingMovie} heading="Now Playing" />
+                <Scrolling data={topRatedMovies} heading="Top Rated" />
+                <Scrolling data={popularTvMovies} heading="Popular TV-Show" />
+                <Scrolling data={onAirMovies} heading="On Air" />
+
             </div>
         </PageTransition>
     );
