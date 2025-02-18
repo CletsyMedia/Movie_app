@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["jest", "@testing-library/jest-dom"],
+    "types": [],
     "jsx": "react",
     "esModuleInterop": true,
     "moduleResolution": "node16",
