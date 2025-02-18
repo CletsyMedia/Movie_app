@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { Film } from "lucide-react";
-import { CardProps } from "@/constants/Types";
+import { CardProps } from "../../constants/Types.ts";
 
 const Card: React.FC<CardProps> = ({ data, index, label }) => {
   const title = data?.title || data?.name;
