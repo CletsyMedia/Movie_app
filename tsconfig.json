@@ -1,13 +1,15 @@
 {
-    "compilerOptions": {
-      "types": ["jest", "@testing-library/jest-dom"],
-      "jsx": "react",
-      "esModuleInterop": true,
-      "moduleResolution": "node",
-      "module": "ESNext",
-      "baseUrl": "./src",
+  "compilerOptions": {
+    "types": ["jest", "@testing-library/jest-dom"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "moduleResolution": "node16", // Updated module resolution
+    "module": "ESNext",
+    "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    }
-    }
+    },
+    "allowImportingTsExtensions": true, // Allow importing TS extensions
+    "skipLibCheck": true // Skip checking types in declaration files
   }
+}
