@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AxiosInstance from "@/api/AxiosInstance";
-import Card from "@/components/ui/Card";
-import Pagination from "@/components/common/Pagination";
-import Loader from "@/components/common/Loader";
+import AxiosInstance from "../api/AxiosInstance.tsx";
+import Card from "../components/ui/Card.tsx";
+import Pagination from "../components/common/Pagination.tsx";
+import Loader from "../components/common/Loader.tsx";
 
 const ExplorePage = () => {
   const params = useParams();

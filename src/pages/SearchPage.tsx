@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import AxiosInstance from "@/api/AxiosInstance";
-import Card from "@/components/ui/Card";
-import Loader from "@/components/common/Loader";
-import Pagination from "@/components/common/Pagination";
+import AxiosInstance from "../api/AxiosInstance.tsx";
+import Card from "../components/ui/Card.tsx";
+import Loader from "../components/common/Loader.tsx";
+import Pagination from "../components/common/Pagination.tsx";
 
 const SearchPage = () => {
   const location = useLocation();

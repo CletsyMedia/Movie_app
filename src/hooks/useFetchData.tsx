@@ -1,10 +1,16 @@
-import { useDispatch } from 'react-redux';
-import AxiosInstance from '@/api/AxiosInstance';
-import { setBannerdata, setNowPlayingData, setTopRatedData, setPopularTvData, setOnAirData, setImageBaseUrl } from '@/store/slice/movieSlice';
+import { useDispatch } from "react-redux";
+import AxiosInstance from "../api/AxiosInstance.tsx";
+import {
+  setBannerdata,
+  setNowPlayingData,
+  setTopRatedData,
+  setPopularTvData,
+  setOnAirData,
+  setImageBaseUrl,
+} from "../store/slice/movieSlice.ts";
 
 const useFetchData = () => {
   const dispatch = useDispatch();
-
 
   const fetchTrendingMovies = async () => {
     try {
@@ -18,7 +24,9 @@ const useFetchData = () => {
   const fetchConfigurations = async () => {
     try {
       const response = await AxiosInstance.get("/configuration");
-      dispatch(setImageBaseUrl(response.data.images.secure_base_url + "original"));
+      dispatch(
+        setImageBaseUrl(response.data.images.secure_base_url + "original")
+      );
     } catch (error) {
       console.error("Error fetching configuration:", error);
     }
@@ -27,7 +35,7 @@ const useFetchData = () => {
   const fetchPlayingData = async () => {
     try {
       const response = await AxiosInstance.get("/movie/now_playing");
-      dispatch(setNowPlayingData(response.data.results))
+      dispatch(setNowPlayingData(response.data.results));
     } catch (error) {
       console.error("Error fetching now playing movies:", error);
     }
@@ -36,16 +44,16 @@ const useFetchData = () => {
   const fetchTopRatedData = async () => {
     try {
       const response = await AxiosInstance.get("/movie/top_rated");
-      dispatch(setTopRatedData(response.data.results))
+      dispatch(setTopRatedData(response.data.results));
     } catch (error) {
       console.error("Error fetching top rated movies:", error);
     }
-  }
+  };
 
   const fetchPopularTvData = async () => {
     try {
       const response = await AxiosInstance.get("/tv/popular");
-      dispatch(setPopularTvData(response.data.results))
+      dispatch(setPopularTvData(response.data.results));
     } catch (error) {
       console.error("Error fetching popular tv shows:", error);
     }
@@ -54,11 +62,11 @@ const useFetchData = () => {
   const fetchOnAirData = async () => {
     try {
       const response = await AxiosInstance.get("/tv/on_the_air");
-      dispatch(setOnAirData(response.data.results))
+      dispatch(setOnAirData(response.data.results));
     } catch (error) {
       console.error("Error fetching on air tv shows:", error);
     }
-  }
+  };
 
   // Fetch all necessary movie-related data
   const fetchData = async () => {
@@ -70,7 +78,7 @@ const useFetchData = () => {
     await fetchOnAirData();
   };
 
-  return { fetchData};
+  return { fetchData };
 };
 
 export default useFetchData;

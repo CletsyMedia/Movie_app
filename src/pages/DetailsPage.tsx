@@ -1,17 +1,17 @@
 import React, { useEffect, useCallback, useState } from "react";
-import AxiosInstance from "@/api/AxiosInstance";
+import AxiosInstance from "../api/AxiosInstance.tsx";
 import { useParams } from "react-router-dom";
-import Loader from "@/components/common/Loader";
+import Loader from "../components/common/Loader.tsx";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import Scrolling from "@/components/common/Scrolling";
-import useFetchData from "@/hooks/useFetchData";
-import Rating from "@/components/common/Rating";
+import { RootState } from "../store/store.ts";
+import Scrolling from "../components/common/Scrolling.tsx";
+import useFetchData from "../hooks/useFetchData.tsx";
+import Rating from "../components/common/Rating.tsx";
 import ReactPlayer from "react-player";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { SlClose } from "react-icons/sl";
 import moment from "moment";
-import { MediaDetails, Movie } from "@/constants/Types";
+import { MediaDetails, Movie } from "../constants/Types.ts";
 
 const DetailsPage = () => {
   const { explore, id } = useParams();

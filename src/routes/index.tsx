@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import App from "@/App";
-import Loader from "@/components/common/Loader";
+import App from "../App.tsx";
+import Loader from "../components/common/Loader.tsx";
 
 // Lazy load the route components
-const Home = React.lazy(() => import("@/pages/Home"));
-const ExplorePage = React.lazy(() => import("@/pages/ExplorePage"));
-const SearchPage = React.lazy(() => import("@/pages/SearchPage"));
-const DetailsPage = React.lazy(() => import("@/pages/DetailsPage"));
+const Home = React.lazy(() => import("../pages/Home.tsx"));
+const ExplorePage = React.lazy(() => import("../pages/ExplorePage.tsx"));
+const SearchPage = React.lazy(() => import("../pages/SearchPage.tsx"));
+const DetailsPage = React.lazy(() => import("../pages/DetailsPage.tsx"));
 
 // Set up the router
 const router = createBrowserRouter([

@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import { User, Search } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { navLinks } from "../constants/navigation";
+import { navLinks } from "../constants/navigation.ts";
 
 const Header: React.FC = memo(() => {
   const location = useLocation();
