@@ -3,13 +3,14 @@
     "types": ["jest", "@testing-library/jest-dom"],
     "jsx": "react",
     "esModuleInterop": true,
-    "moduleResolution": "node16", // Updated module resolution
-    "module": "ESNext",
+    "moduleResolution": "node16",
+    "module": "Node16",
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
     },
-    "allowImportingTsExtensions": true, // Allow importing TS extensions
-    "skipLibCheck": true // Skip checking types in declaration files
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   }
 }
