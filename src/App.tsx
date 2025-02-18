@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Outlet } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "./components/Header.tsx";
+import Footer from "./components/Footer.tsx";
 import "./index.css";
-import useFetchData from "@/hooks/useFetchData";
+import useFetchData from "./hooks/useFetchData.tsx";
 
 const App = () => {
   const { fetchData } = useFetchData();

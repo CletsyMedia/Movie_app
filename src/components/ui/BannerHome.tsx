@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { RootState } from "../../store/store.ts";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
 import { FaGripLinesVertical } from "react-icons/fa";
@@ -9,8 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Swiper as SwiperType } from "swiper";
-import Loader from "@/components/common/Loader";
-import Rating from "@/components/common/Rating";
+import Loader from "../../components/common/Loader.tsx";
+import Rating from "../../components/common/Rating.tsx";
 
 const BannerHome: React.FC = () => {
   const bannerData = useSelector(

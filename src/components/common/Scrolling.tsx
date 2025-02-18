@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import Card from "@/components/ui/Card";
-import { ScrollingProps } from "@/constants/Types";
+import Card from "../../components/ui/Card.tsx";
+import { ScrollingProps } from "../../constants/Types.ts";
 
 const Scrolling: React.FC<ScrollingProps> = ({ data = [], heading }) => {
   // Generate unique IDs for each carousel instance
