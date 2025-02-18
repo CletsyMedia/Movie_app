@@ -5,25 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Card from "@/components/ui/Card";
-
-interface Movie {
-  id: number;
-  title: string;
-  name: string;
-  genre: string;
-  backdrop_path: string;
-  poster_path: string;
-  vote_average: number;
-  popularity: number;
-  overview: string;
-  release_date: string;
-  media_type: string;
-}
-
-interface ScrollingProps {
-  data: Movie[];
-  heading: string;
-}
+import { ScrollingProps } from "@/constants/Types";
 
 const Scrolling: React.FC<ScrollingProps> = ({ data = [], heading }) => {
   // Generate unique IDs for each carousel instance
@@ -51,32 +33,42 @@ const Scrolling: React.FC<ScrollingProps> = ({ data = [], heading }) => {
         >
           {data.map((movie, index) => (
             <SwiperSlide key={movie.id} className="!w-[250px]">
-              <Card data={movie} index={index} label={ heading === "Trending"
-      ? "Trending"
-      : heading === "Now Playing"
-      ? "Playing"
-      : heading === "Top Rated"
-      ? "Rated"
-      : heading === "Popular TV-Show"
-      ? "Series"
-      : "OnAir"} />
+              <Card
+                data={movie}
+                index={index}
+                label={
+                  heading === "Trending"
+                    ? "Trending"
+                    : heading === "Now Playing"
+                    ? "Playing"
+                    : heading === "Top Rated"
+                    ? "Rated"
+                    : heading === "Popular TV-Show"
+                    ? "Series"
+                    : heading === "On Air"
+                    ? "OnAir"
+                    : ""
+                }
+              />
             </SwiperSlide>
           ))}
         </Swiper>
 
         {/* Unique Navigation Buttons */}
-        <button
-          id={prevButtonId}
-          className="hidden sm:block absolute top-1/2 -left-4 md:-left-2 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-2 cursor-pointer rounded-full text-white transition z-40"
-        >
-          <ChevronLeft size={16} />
-        </button>
-        <button
-          id={nextButtonId}
-          className="hidden sm:block absolute top-1/2 -right-4 md:-right-2 transform -translate-y-1/2 bg-black/60 hover:bg-red-500 p-2 cursor-pointer rounded-full text-white transition z-40"
-        >
-          <ChevronRight size={16} />
-        </button>
+        <div className="hidden sm:flex  absolute -top-0 right-0">
+          <button
+            id={prevButtonId}
+            className=" bg-black/60 hover:bg-red-500 p-2 cursor-pointer text-white transition z-40 rounded-l-xl"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            id={nextButtonId}
+            className="bg-black/60 hover:bg-red-500 p-2 cursor-pointer text-white transition z-40 rounded-r-xl"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );

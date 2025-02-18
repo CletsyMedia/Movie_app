@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 
     return (
         <PageTransition>
-            <div>
+            <div className=" bg-transparent">
                 <BannerHome />
                 <Scrolling data={trendingMovies} heading="Trending" />
                 <Scrolling data={nowPlayingMovie} heading="Now Playing" />

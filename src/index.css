@@ -7,3 +7,14 @@ body {
 .scrollbar-none::-webkit-scrollbar{
     display: none;
 }
+/* Default Grid Template (Desktop) */
+.grid-cols-default {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }

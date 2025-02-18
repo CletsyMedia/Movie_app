@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Movie {
   id: number;
@@ -28,28 +28,28 @@ const initialState: BannerState = {
   nowPlayingData: [],
   topRatedData: [],
   popularTvData: [],
-    onAirData: [],
-  imageBaseUrl: '',
+  onAirData: [],
+  imageBaseUrl: "",
 };
 
 export const movieSlice = createSlice({
-  name: 'movie',
+  name: "movie",
   initialState,
   reducers: {
     setBannerdata: (state, action: PayloadAction<Movie[]>) => {
       state.bannerData = action.payload;
     },
     setNowPlayingData: (state, action: PayloadAction<Movie[]>) => {
-        state.topRatedData = action.payload;
+      state.topRatedData = action.payload;
     },
     setTopRatedData: (state, action: PayloadAction<Movie[]>) => {
-        state.nowPlayingData = action.payload;
+      state.nowPlayingData = action.payload;
     },
     setPopularTvData: (state, action: PayloadAction<Movie[]>) => {
-        state.popularTvData = action.payload;
+      state.popularTvData = action.payload;
     },
     setOnAirData: (state, action: PayloadAction<Movie[]>) => {
-        state.onAirData = action.payload;
+      state.onAirData = action.payload;
     },
     setImageBaseUrl: (state, action: PayloadAction<string>) => {
       state.imageBaseUrl = action.payload;
@@ -57,6 +57,13 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { setBannerdata, setNowPlayingData, setTopRatedData, setPopularTvData, setOnAirData, setImageBaseUrl } = movieSlice.actions;
+export const {
+  setBannerdata,
+  setNowPlayingData,
+  setTopRatedData,
+  setPopularTvData,
+  setOnAirData,
+  setImageBaseUrl,
+} = movieSlice.actions;
 
 export default movieSlice.reducer;

@@ -1,43 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, memo } from "react";
 import { User, Search } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { navLinks } from "../constants/navigation";
 
-const Header: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const navigate = useNavigate();
+const Header: React.FC = memo(() => {
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState<string>(
+    new URLSearchParams(location.search).get("q") || ""
+  );
+  const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false); // Toggle for search visibility
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if(searchQuery){
-        navigate(`/search?q=${searchQuery}`);
-    }
-  }, [navigate, searchQuery]);
-
+  // Handle search submit
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery);
-    navigate(`/search?q=${searchQuery}`);
+    if (searchQuery) {
+      navigate(`/search?q=${searchQuery}`);
+      setIsSearchVisible(false); // Hide the search form after submitting
+    }
+  };
+
+  // Handle search input changes
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Handle link clicks
+  const handleLinkClick = (path: string) => {
+    // Clear search query when navigating to other links
+    if (path !== "/search") {
+      setSearchQuery("");
+    }
+    navigate(path);
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-lg z-60">
+    <header className="fixed top-0 left-0 w-full bg-gray-900 text-white shadow-lg z-60">
       <div className="flex items-center justify-between py-4 px-2 md:px-6">
-        <Link to="/" className="text-3xl font-extrabold text-red-600">
+        {/* Logo and Navigation */}
+        <Link
+          to="/"
+          className="text-3xl font-extrabold text-red-600"
+          onClick={() => handleLinkClick("/")}
+        >
           Movie<span className="text-white">Hub</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8">
           {navLinks.map((link, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div key={index}>
               <Link
                 to={link.path}
+                onClick={() => handleLinkClick(link.path)} // Ensure the search query is cleared when navigating
                 className={`flex-1 text-center text-lg font-medium transition duration-300 no-underline ${
                   link.path === "/"
                     ? location.pathname === "/"
@@ -50,16 +65,20 @@ const Header: React.FC = () => {
               >
                 {link.label}
               </Link>
-            </motion.div>
+            </div>
           ))}
         </nav>
 
         <div className="flex items-center space-x-4">
-          <form onSubmit={handleSearchSubmit} className="hidden md: relative">
+          {/* Search Form (Desktop) */}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="hidden md:block relative"
+          >
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
               placeholder="Search..."
               className="px-4 py-2 rounded-xl bg-gray-800 text-white border-2 border-transparent focus:border-red-500 focus:outline-none transition-all"
             />
@@ -79,12 +98,27 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mobile Navigation at the bottom */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="md:hidden fixed bottom-0 left-0 w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 py-4 px-6"
-      >
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-gray-900 text-white shadow-lg py-4 px-6">
+        {isSearchVisible && (
+          <div className="absolute bottom-20 left-0 right-0 w-full px-6 py-4 bg-gray-900">
+            <form onSubmit={handleSearchSubmit} className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search..."
+                className="px-4 py-2 rounded-xl bg-gray-800 text-white border-2 border-transparent focus:border-red-500 focus:outline-none transition-all w-full"
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-300 cursor-pointer"
+              >
+                <Search size={20} />
+              </button>
+            </form>
+          </div>
+        )}
+
         <div className="flex justify-between items-center space-x-4">
           {navLinks.map((link, index) => {
             const Icon = link.icon;
@@ -95,6 +129,7 @@ const Header: React.FC = () => {
                 </div>
                 <Link
                   to={link.path}
+                  onClick={() => handleLinkClick(link.path)}
                   className={`flex-1 text-center text-base font-medium transition duration-300 no-underline ${
                     link.path === "/"
                       ? location.pathname === "/"
@@ -110,26 +145,27 @@ const Header: React.FC = () => {
               </div>
             );
           })}
+
+          {/* Search Icon and Text on Mobile */}
           <div className="flex flex-col items-center justify-center gap-2">
             <button
-              type="submit"
+              type="button"
+              onClick={() => setIsSearchVisible((prev) => !prev)}
               className="cursor-pointer text-gray-300 hover:text-red-500 transition duration-300"
             >
               <Search size={20} />
             </button>
-            <Link
-              to={`/search?q=${searchQuery}`}
-              className={`text-gray-300 cursor-pointer hover:text-red-500 transition duration-300 ${
-                location.pathname.startsWith("/search") ? "text-red-500" : ""
-              }`}
+            <span
+              onClick={() => setIsSearchVisible((prev) => !prev)}
+              className="cursor-pointer text-gray-300 hover:text-red-500 transition duration-300 text-sm"
             >
               Search
-            </Link>
+            </span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </header>
   );
-};
+});
 
 export default Header;
